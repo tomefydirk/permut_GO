@@ -35,16 +35,34 @@ func find_another_int(my_sigma1 []int ,cycle [][]int) int {
 func find_image(my_sigma [2][]int, value int) int {
 	 return my_sigma[1][value];
 }
-func push_suivant(my_sigma [2][]int,un_cycle []int ) int{
-	a:=un_cycle[len(un_cycle)-1];
-		if a==0{
-			
+func push_suivant(my_sigma [2][]int,un_cycle []int,est_finie *bool) {
+	x:=un_cycle[len(un_cycle)-1];
+	y:=find_image(my_sigma,x);
+		if is_inV1(un_cycle,y){
+			 *est_finie=true;	
+		}else{
+			un_cycle=append(un_cycle,y);	
 		}
-		return -1;
+		
 }
-func chercher_cycle(my_tab [][]int) [][]int{
-	
-	return my_tab;
+
+func all_is_in(my_sigma1 []int,cycle [][]int) bool {
+	for i:=0;i<len(my_sigma1);i++{
+		if !is_inV2((cycle),my_sigma1[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+func chercher_cycle(my_sigma [2][]int) [2][]int{
+	var cycle [][] int; 
+	est_finie:=false;
+	for !all_is_in(my_sigma[0],cycle){
+	if !est_finie{
+		est_finie=true;
+	}		
+	}
+	return my_sigma;
 }
 func main(){
 	 fmt.Println("done");	
