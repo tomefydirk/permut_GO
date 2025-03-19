@@ -74,8 +74,8 @@ func chercher_cycle(my_sigma [2][]int) [][]int{
 // }
 func main(){
 	permutation := [2][]int{
-        {1, 2, 3, 4, 5}, // Les éléments originaux
-        {2, 1, 4, 5, 3}, // L'image des éléments après la permutation
+        {1, 2, 3, 4, 5,6,7,8,9}, // Les éléments originaux
+        {9, 1, 4, 7, 3,8,6,5,2}, // L'image des éléments après la permutation
     }
 	//push_suivant(permutation,&permutation1[0]);
 	//fmt.Println(permutation1);
