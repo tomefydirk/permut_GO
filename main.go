@@ -37,10 +37,11 @@ func find_image(my_sigma [2][]int, value int) int {
 }
 
 // to_debug{
-func push_suivant(my_sigma [2][]int,un_cycle *[]int,est_finie *bool) {
+func push_suivant(my_sigma [2][]int,un_cycle *[]int) {
 	x:=(*un_cycle)[len(*un_cycle)-1];
 	y:=find_image(my_sigma,x);
-	fmt.Println("y",y);
+
+
 	for  !is_inV1(*un_cycle,y){
 		*un_cycle=append(*un_cycle,y);
 		x=(*un_cycle)[len(*un_cycle)-1];
@@ -58,43 +59,30 @@ func all_is_in(my_sigma1 []int,cycle [][]int) bool {
 	}
 	return true;
 }
-func chercher_cycle(my_sigma [2][]int) [2][]int{
+func chercher_cycle(my_sigma [2][]int) [][]int{
 	cycle :=[][] int{
-		{my_sigma[0][0]},
+		
 	} 
-	est_finie:=false;
-	i:=0;
-	for !all_is_in(my_sigma[0],cycle){
-	if est_finie{
-		est_finie=false;
-		i++;
-		x:=find_another_int(my_sigma[0],cycle);
-		if x==-1{
-				break;
-		}
-		fmt.Println("on a x=",x);
-		temp:=append(cycle[i],x);
-		cycle=append(cycle,temp);
-	}	
-	push_suivant(my_sigma,&cycle[i],&est_finie);		
+	for i:=0;!all_is_in(my_sigma[0],cycle);i++{
+	a:=find_another_int(my_sigma[0],cycle);
+	cycle=append(cycle,[]int{a});
+	push_suivant(my_sigma,&cycle[i]);	
 	}
-	return my_sigma;
+	return cycle;
 }
 
 // }
 func main(){
 	permutation := [2][]int{
         {1, 2, 3, 4, 5}, // Les éléments originaux
-        {3, 5, 1, 2, 4}, // L'image des éléments après la permutation
+        {2, 1, 4, 5, 3}, // L'image des éléments après la permutation
     }
-	permutation1 := [2][]int{
-         {2}, // Les éléments originaux
-    }
-	est_finie:=false
-	push_suivant(permutation,&permutation1[0],&est_finie);
-	fmt.Println(permutation1);
-	fmt.Println(find_image(permutation,1));
-	
+	//push_suivant(permutation,&permutation1[0]);
+	//fmt.Println(permutation1);
+//	fmt.Println(find_image(permutation,1));
+	fmt.Println(chercher_cycle(permutation));
+
+	fmt.Println(find_another_int(permutation[0],[][]int{{1,2},}));
 //	fmt.Println(a);
 
 	 fmt.Println("done");	
