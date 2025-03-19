@@ -37,18 +37,16 @@ func find_image(my_sigma [2][]int, value int) int {
 }
 
 // to_debug{
-func push_suivant(my_sigma [2][]int,un_cycle []int,est_finie *bool) {
-	x:=un_cycle[len(un_cycle)-1];
+func push_suivant(my_sigma [2][]int,un_cycle *[]int,est_finie *bool) {
+	x:=(*un_cycle)[len(*un_cycle)-1];
 	y:=find_image(my_sigma,x);
 	fmt.Println("y",y);
-		if is_inV1(un_cycle,y){
-			 *est_finie=true;	
-			 fmt.Println("un_cycle:",un_cycle);
-			 return;
-		}else{
-			un_cycle=append(un_cycle,y);
-			
-		}
+	for  !is_inV1(*un_cycle,y){
+		*un_cycle=append(*un_cycle,y);
+		x=(*un_cycle)[len(*un_cycle)-1];
+	    y=find_image(my_sigma,x);
+		
+	}
 		
 }
 
@@ -78,7 +76,7 @@ func chercher_cycle(my_sigma [2][]int) [2][]int{
 		temp:=append(cycle[i],x);
 		cycle=append(cycle,temp);
 	}	
-	push_suivant(my_sigma,cycle[i],&est_finie);		
+	push_suivant(my_sigma,&cycle[i],&est_finie);		
 	}
 	return my_sigma;
 }
@@ -93,7 +91,8 @@ func main(){
          {2}, // Les éléments originaux
     }
 	est_finie:=false
-	push_suivant(permutation,permutation1,est_finie);
+	push_suivant(permutation,&permutation1[0],&est_finie);
+	fmt.Println(permutation1);
 	fmt.Println(find_image(permutation,1));
 	
 //	fmt.Println(a);
